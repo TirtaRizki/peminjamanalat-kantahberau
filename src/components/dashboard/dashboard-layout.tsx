@@ -69,7 +69,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
+              <Image src="/images/logo.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
               <span className="">SILAB Berau</span>
             </Link>
           </div>
@@ -128,7 +128,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
                   href="#"
                   className="flex items-center gap-2 text-lg font-semibold mb-4"
                 >
-                  <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
+                  <Image src="/images/logo.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
                   <span>SILAB Berau</span>
                 </Link>
                 <nav className="grid gap-2 text-lg font-medium">

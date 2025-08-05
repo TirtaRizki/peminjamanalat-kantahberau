@@ -2,7 +2,7 @@ export const initialTools = [
   {
     id: 'ALT-001',
     name: 'Total Station',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -10,7 +10,7 @@ export const initialTools = [
   {
     id: 'ALT-002',
     name: 'GPS Geodetik',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Dipinjam',
     condition: 'Baik',
@@ -18,7 +18,7 @@ export const initialTools = [
   {
     id: 'ALT-003',
     name: 'Waterpass',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Optik',
     status: 'Tersedia',
     condition: 'Perbaikan',
@@ -26,7 +26,7 @@ export const initialTools = [
   {
     id: 'ALT-004',
     name: 'Theodolite',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -34,7 +34,7 @@ export const initialTools = [
   {
     id: 'ALT-005',
     name: 'Digital Theodolite',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -42,7 +42,7 @@ export const initialTools = [
   {
     id: 'ALT-006',
     name: 'Automatic Level',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Optik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -50,7 +50,7 @@ export const initialTools = [
   {
     id: 'ALT-007',
     name: 'Laser Scanner',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Dipinjam',
     condition: 'Baik',
@@ -58,7 +58,7 @@ export const initialTools = [
   {
     id: 'ALT-008',
     name: 'Drone RTK',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Elektronik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -66,7 +66,7 @@ export const initialTools = [
   {
     id: 'ALT-009',
     name: 'Prisma Polygon',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Aksesoris',
     status: 'Tersedia',
     condition: 'Baik',
@@ -74,7 +74,7 @@ export const initialTools = [
   {
     id: 'ALT-010',
     name: 'Rambu Ukur',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Aksesoris',
     status: 'Tersedia',
     condition: 'Perbaikan',
@@ -82,7 +82,7 @@ export const initialTools = [
   {
     id: 'ALT-011',
     name: 'Tripod',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Aksesoris',
     status: 'Tersedia',
     condition: 'Baik',
@@ -90,7 +90,7 @@ export const initialTools = [
   {
     id: 'ALT-012',
     name: 'Pita Ukur',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Manual',
     status: 'Dipinjam',
     condition: 'Baik',
@@ -98,7 +98,7 @@ export const initialTools = [
   {
     id: 'ALT-013',
     name: 'Kompas',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Manual',
     status: 'Tersedia',
     condition: 'Baik',
@@ -106,7 +106,7 @@ export const initialTools = [
   {
     id: 'ALT-014',
     name: 'Palu Geologi',
-    image: 'https://placehold.co/64x64.png',
+    image: '/images/placeholder-64x64.png',
     type: 'Manual',
     status: 'Tersedia',
     condition: 'Baik',

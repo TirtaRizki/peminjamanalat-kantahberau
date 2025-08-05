@@ -43,7 +43,7 @@ export default function Sop() {
             <Card className="w-full shadow-2xl overflow-hidden rounded-xl">
               <CardContent className="p-0">
                  <Image
-                  src="https://placehold.co/800x1100.png"
+                  src="/images/sop-flowchart.png"
                   alt="SOP Peminjaman Alat Survey"
                   width={800}
                   height={1100}

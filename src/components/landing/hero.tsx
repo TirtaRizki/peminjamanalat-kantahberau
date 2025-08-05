@@ -33,7 +33,7 @@ export default function Hero() {
           </div>
           <div className="relative h-64 md:h-96 w-full">
             <Image
-              src="https://placehold.co/600x400.png"
+              src="/images/surveying-land.png"
               alt="Surveying team at work"
               layout="fill"
               objectFit="cover"

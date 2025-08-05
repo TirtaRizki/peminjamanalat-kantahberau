@@ -85,7 +85,7 @@ export default function LoginForm({ title, role }: LoginFormProps) {
           <CardHeader className="text-center">
             <div className="mx-auto mb-4">
               <Image
-                src="https://placehold.co/80x80.png"
+                src="/images/logo.png"
                 alt="SILAB Berau Logo"
                 width={80}
                 height={80}

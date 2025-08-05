@@ -33,7 +33,7 @@ export default function ProfilePage({ role }: ProfilePageProps) {
   const [user, setUser] = useState({
     name: role === 'Admin' ? 'Admin Utama' : 'Petugas Lapangan 1',
     email: role === 'Admin' ? 'admin@kantahberau.com' : 'petugas@kantahberau.com',
-    avatar: 'https://placehold.co/128x128.png',
+    avatar: '/images/avatar-128x128.png',
   });
 
   const { toast } = useToast();

@@ -101,7 +101,7 @@ export default function ManajemenAlatPage() {
       // Create
       const newTool: Tool = {
         id: `ALT-${String(tools.length + 1).padStart(3, '0')}`,
-        image: 'https://placehold.co/64x64.png',
+        image: '/images/placeholder-64x64.png',
         ...newToolData,
       };
       setTools([...tools, newTool]);

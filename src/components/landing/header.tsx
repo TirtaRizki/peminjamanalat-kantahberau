@@ -41,7 +41,7 @@ export default function Header() {
     )}>
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
+          <Image src="/images/logo.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
           <span className="font-bold text-lg">SILAB Berau</span>
         </Link>
         <nav className="hidden md:flex gap-6">
@@ -80,7 +80,7 @@ export default function Header() {
             <SheetContent side="right" className="w-[240px] bg-gradient-to-br from-background via-secondary/50 to-background p-0">
               <div className="flex flex-col gap-4 p-6 h-full">
                  <Link href="/" className="flex items-center gap-2 mb-4" onClick={() => setMobileMenuOpen(false)}>
-                  <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
+                  <Image src="/images/logo.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
                   <span className="font-bold text-lg text-foreground">SILAB Berau</span>
                 </Link>
                 <div className="flex flex-col gap-2">

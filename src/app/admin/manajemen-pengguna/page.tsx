@@ -63,28 +63,28 @@ const initialUsers = [
     name: 'Admin Utama',
     email: 'admin@kantahberau.com',
     role: 'Admin',
-    avatar: 'https://placehold.co/40x40.png',
+    avatar: '/images/avatar-placeholder.png',
   },
   {
     id: 'USR-002',
     name: 'Petugas Lapangan 1',
     email: 'petugas@kantahberau.com',
     role: 'Petugas',
-    avatar: 'https://placehold.co/40x40.png',
+    avatar: '/images/avatar-placeholder.png',
   },
   {
     id: 'USR-003',
     name: 'Andi Wijaya',
     email: 'andi.w@kantahberau.com',
     role: 'Petugas',
-    avatar: 'https://placehold.co/40x40.png',
+    avatar: '/images/avatar-placeholder.png',
   },
   {
     id: 'USR-004',
     name: 'Budi Santoso',
     email: 'budi.s@kantahberau.com',
     role: 'Petugas',
-    avatar: 'https://placehold.co/40x40.png',
+    avatar: '/images/avatar-placeholder.png',
   },
 ];
 
@@ -154,7 +154,7 @@ export default function ManajemenPenggunaPage() {
       // Create
       const newUser: User = {
         id: `USR-${String(users.length + 1).padStart(3, '0')}`,
-        avatar: 'https://placehold.co/40x40.png',
+        avatar: '/images/avatar-placeholder.png',
         ...newUserData,
       };
       setUsers([...users, newUser]);

@@ -8,7 +8,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative w-full h-80 md:h-full order-last md:order-first">
              <Image
-              src="https://placehold.co/500x500.png"
+              src="/images/surveying-land.png"
               alt="BPN Berau office team"
               layout="fill"
               objectFit="cover"
