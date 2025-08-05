@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Bot, MessageSquare, Send, X } from 'lucide-react';
+import { Bot, Send, X } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { chat, ChatInput } from '@/ai/flows/chatbot-flow';
@@ -74,7 +74,7 @@ export default function Chatbot() {
           {isOpen ? (
             <X className="h-8 w-8 group-hover:rotate-90 transition-transform" />
           ) : (
-            <MessageSquare className="h-8 w-8 group-hover:animate-shake" />
+            <Bot className="h-8 w-8 group-hover:animate-shake" />
           )}
         </Button>
       </div>
