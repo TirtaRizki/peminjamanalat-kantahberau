@@ -31,7 +31,7 @@ export default function Stats() {
               <p className="mt-2 text-xl font-semibold text-foreground">Kondisi Alat Baik</p>
               <p className="mt-1 text-muted-foreground">Siap untuk digunakan di lapangan.</p>
               <Button asChild className="mt-4" variant="outline">
-                <Link href="#katalog">Lihat Detail Alat</Link>
+                <Link href="/katalog">Lihat Detail Alat</Link>
               </Button>
             </CardContent>
           </Card>

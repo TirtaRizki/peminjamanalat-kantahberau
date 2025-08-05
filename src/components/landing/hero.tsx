@@ -21,13 +21,13 @@ export default function Hero() {
             </p>
             <div className="mt-8 flex gap-4 justify-center md:justify-start">
               <Button asChild size="lg" className="group">
-                <Link href="#katalog">
+                <Link href="/katalog">
                   Lihat Katalog Alat
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="#kontak">Hubungi Kami</Link>
+                <Link href="/kontak">Hubungi Kami</Link>
               </Button>
             </div>
           </div>

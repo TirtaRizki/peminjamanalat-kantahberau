@@ -15,11 +15,11 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { name: 'Beranda', href: '#home' },
-  { name: 'Tentang', href: '#tentang' },
-  { name: 'SOP', href: '#sop' },
-  { name: 'Katalog', href: '#katalog' },
-  { name: 'Kontak', href: '#kontak' },
+  { name: 'Beranda', href: '/' },
+  { name: 'Tentang', href: '/tentang' },
+  { name: 'SOP', href: '/sop' },
+  { name: 'Katalog', href: '/katalog' },
+  { name: 'Kontak', href: '/kontak' },
 ];
 
 export default function Header() {
