@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import {
   Bell,
   Home,
@@ -55,6 +56,7 @@ const iconMap: { [key: string]: React.ElementType } = {
 
 export default function DashboardLayout({ children, navItems, isOfficer = false }: DashboardLayoutProps) {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const getIcon = (name: string) => {
     return iconMap[name] || Home;
@@ -111,7 +113,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
       </div>
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
-          <Sheet>
+          <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
@@ -125,7 +127,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
             <SheetContent side="left" className="flex flex-col p-0">
               <div className="flex h-full flex-col bg-background">
                 <div className="flex h-14 items-center border-b px-6">
-                  <Link href="/" className="flex items-center gap-2 font-semibold">
+                  <Link href="/" className="flex items-center gap-2 font-semibold" onClick={() => setMobileMenuOpen(false)}>
                      <Image src="/images/logo.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
                     <span className="">SILAB Berau</span>
                   </Link>
@@ -138,6 +140,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
                       <Link
                         key={item.name}
                         href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
                         className={cn(
                           'flex items-center gap-3 rounded-lg px-3 py-3 text-muted-foreground transition-all hover:text-primary hover:bg-muted',
                            pathname === item.href && 'bg-muted text-primary font-bold'
@@ -187,7 +190,7 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 overflow-auto">
           {children}
         </main>
       </div>

@@ -145,7 +145,7 @@ export default function PeminjamanSayaPage() {
                           <TableCell className="hidden md:table-cell">{loan.loanDate}</TableCell>
                           <TableCell className="hidden md:table-cell">{loan.returnDate}</TableCell>
                           <TableCell>{getStatusBadge(loan.status)}</TableCell>
-                          <TableCell className="hidden sm:table-cell">{loan.notes}</TableCell>
+                          <TableCell className="hidden sm:table-cell max-w-[200px] truncate">{loan.notes}</TableCell>
                           <TableCell>
                             {loan.status === 'Menunggu Persetujuan' && (
                                <AlertDialog>
