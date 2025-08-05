@@ -66,7 +66,7 @@ export default function Chatbot() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 left-6 z-50">
         <Button
           onClick={() => setIsOpen(!isOpen)}
           className="rounded-full w-16 h-16 shadow-lg group"
@@ -80,7 +80,7 @@ export default function Chatbot() {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50">
+        <div className="fixed bottom-24 left-6 z-50">
           <Card className="w-80 shadow-2xl animate-fade-in-up">
             <CardHeader className="flex flex-row items-center gap-4 bg-primary text-primary-foreground p-4 rounded-t-lg">
                <Avatar>
