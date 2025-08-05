@@ -62,6 +62,7 @@ export default function RegisterForm() {
       id: `USR-${String(users.length + 1).padStart(3, '0')}`,
       name: values.name,
       email: values.email,
+      password: values.password, // Save password
       role: 'Petugas',
       avatar: '/images/avatar-placeholder.png',
     });

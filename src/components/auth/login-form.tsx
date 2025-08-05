@@ -26,6 +26,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useUsers } from '@/hooks/use-users';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Alamat email tidak valid.' }),
@@ -40,6 +41,8 @@ type LoginFormProps = {
 export default function LoginForm({ title, role }: LoginFormProps) {
   const router = useRouter();
   const { toast } = useToast();
+  const { users } = useUsers();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,27 +54,26 @@ export default function LoginForm({ title, role }: LoginFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const { email, password } = values;
 
-    if (role === 'admin') {
-      if (email === 'admin@kantahberau.com' && password === 'berauera2025') {
-        router.push('/admin/dashboard');
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Login Gagal',
-          description: 'Email atau password untuk admin salah.',
-        });
-      }
-    } else if (role === 'officer') {
-      // This is a simplified check. In a real app, you'd check against a user database.
-      if (email.endsWith('@kantahberau.com') && password.length >= 6) {
+    const user = users.find(u => u.email === email);
+
+    if (user && user.password === password) {
+       if (role === 'admin' && user.role === 'Admin') {
+         router.push('/admin/dashboard');
+       } else if (role === 'officer' && user.role === 'Petugas') {
          router.push('/petugas/dashboard');
-      } else {
-        toast({
+       } else {
+         toast({
           variant: 'destructive',
           title: 'Login Gagal',
-          description: 'Email atau password untuk petugas salah.',
+          description: `Anda tidak memiliki akses sebagai ${role}.`,
         });
-      }
+       }
+    } else {
+       toast({
+        variant: 'destructive',
+        title: 'Login Gagal',
+        description: 'Email atau password salah.',
+      });
     }
   }
 
@@ -109,7 +111,7 @@ export default function LoginForm({ title, role }: LoginFormProps) {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="email@contoh.com" {...field} />
+                        <Input placeholder="email@kantahberau.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
