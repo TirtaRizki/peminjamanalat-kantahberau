@@ -25,15 +25,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-secondary/70 pt-20 pb-10 border-t overflow-hidden">
-      <Image
-        src="/images/footer.png"
-        alt="BPN Berau Team"
-        layout="fill"
-        objectFit="cover"
-        className="absolute inset-0 z-0 opacity-50"
-        data-ai-hint="office team"
-      />
+    <footer 
+      className="relative pt-20 pb-10 border-t bg-cover bg-center"
+      style={{ backgroundImage: "url('/images/footer.png')" }}
+    >
+      <div className="absolute inset-0 bg-secondary/70 z-0"></div>
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 text-black">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
            <div className="text-center md:text-left">
