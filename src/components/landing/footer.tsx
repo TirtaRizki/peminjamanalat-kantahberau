@@ -20,10 +20,10 @@ export default function Footer() {
         alt="BPN Berau Team"
         layout="fill"
         objectFit="cover"
-        className="absolute inset-0 z-0 opacity-30"
+        className="absolute inset-0 z-0 opacity-50"
         data-ai-hint="office team"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent z-0"></div>
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div className="md:col-span-1">
