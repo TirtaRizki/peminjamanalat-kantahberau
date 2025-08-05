@@ -60,6 +60,9 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
     return iconMap[name] || Home;
   };
 
+  const profileLink = isOfficer ? '/petugas/profil' : '/admin/profil';
+  const settingsLink = isOfficer ? '/petugas/pengaturan' : '/admin/pengaturan';
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] bg-secondary/70">
       <div className="hidden border-r bg-background md:block">
@@ -169,8 +172,12 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{isOfficer ? 'Petugas' : 'Admin'}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profil</DropdownMenuItem>
-              <DropdownMenuItem>Pengaturan</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={profileLink}>Profil</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={settingsLink}>Pengaturan</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                  <Link href="/">
