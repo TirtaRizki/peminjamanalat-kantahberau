@@ -1,9 +1,15 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PackageSearch, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { initialTools } from '@/lib/data';
 
 export default function Stats() {
+  const availableTools = initialTools.filter(tool => tool.status === 'Tersedia').length;
+  const goodConditionTools = initialTools.filter(tool => tool.condition === 'Baik').length;
+
   return (
     <section className="py-20 md:py-24 bg-secondary/70">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -15,7 +21,7 @@ export default function Stats() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-5xl font-extrabold text-primary">14</p>
+              <p className="text-5xl font-extrabold text-primary">{initialTools.length}</p>
               <p className="mt-2 text-xl font-semibold text-foreground">Alat Survey</p>
               <p className="mt-1 text-muted-foreground">Tersedia untuk dipinjam.</p>
             </CardContent>
@@ -27,7 +33,7 @@ export default function Stats() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-5xl font-extrabold text-primary">14</p>
+              <p className="text-5xl font-extrabold text-primary">{goodConditionTools}</p>
               <p className="mt-2 text-xl font-semibold text-foreground">Kondisi Alat Baik</p>
               <p className="mt-1 text-muted-foreground">Siap untuk digunakan di lapangan.</p>
               <Button asChild className="mt-4" variant="outline">

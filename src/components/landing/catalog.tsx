@@ -1,11 +1,7 @@
+'use client';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-const surveyTools = Array.from({ length: 14 }, (_, i) => ({
-  id: i + 1,
-  name: `Alat Survey #${i + 1}`,
-  image: `https://placehold.co/400x400.png`,
-}));
+import { initialTools } from '@/lib/data';
 
 export default function Catalog() {
   return (
@@ -20,7 +16,7 @@ export default function Catalog() {
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6">
-          {surveyTools.map((tool) => (
+          {initialTools.map((tool) => (
             <Card key={tool.id} className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <CardContent className="p-0">
                 <div className="aspect-square relative">

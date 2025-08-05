@@ -57,41 +57,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
-const initialTools = [
-  {
-    id: 'ALT-001',
-    name: 'Total Station',
-    image: 'https://placehold.co/64x64.png',
-    type: 'Elektronik',
-    status: 'Tersedia',
-    condition: 'Baik',
-  },
-  {
-    id: 'ALT-002',
-    name: 'GPS Geodetik',
-    image: 'https://placehold.co/64x64.png',
-    type: 'Elektronik',
-    status: 'Dipinjam',
-    condition: 'Baik',
-  },
-  {
-    id: 'ALT-003',
-    name: 'Waterpass',
-    image: 'https://placehold.co/64x64.png',
-    type: 'Optik',
-    status: 'Tersedia',
-    condition: 'Perbaikan',
-  },
-  {
-    id: 'ALT-004',
-    name: 'Theodolite',
-    image: 'https://placehold.co/64x64.png',
-    type: 'Elektronik',
-    status: 'Tersedia',
-    condition: 'Baik',
-  },
-];
+import { initialTools } from '@/lib/data';
 
 type Tool = typeof initialTools[0];
 
