@@ -76,10 +76,15 @@ html {
 
   .fade-in-up {
     animation: keyframes-fade-in-up 0.8s ease-out forwards;
-    opacity: 0;
   }
 
   section {
     opacity: 0;
+    animation: keyframes-fade-in-up 0.8s ease-out forwards;
+    animation-play-state: paused;
+  }
+  
+  section.is-visible {
+    animation-play-state: running;
   }
 }

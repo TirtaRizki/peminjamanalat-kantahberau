@@ -15,7 +15,7 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
+            entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           }
         });
@@ -30,7 +30,11 @@ export default function Home() {
 
     return () => {
       sections.forEach((section) => {
-        observer.unobserve(section);
+        // Check if observer is still observing before unobserving
+        // This avoids errors if the component unmounts before observer is fully initialized
+        if (observer) {
+          observer.unobserve(section);
+        }
       });
     };
   }, []);
