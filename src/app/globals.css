@@ -14,10 +14,10 @@ html {
     --card-foreground: 210 10% 23%;
     --popover: 210 40% 100%;
     --popover-foreground: 210 10% 23%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 60 9% 98%;
     --secondary: 210 40% 91%;
-    --secondary-foreground: 217 91% 60%;
+    --secondary-foreground: 24 95% 53%;
     --muted: 210 40% 96%;
     --muted-foreground: 210 8% 45%;
     --accent: 24 9.8% 83.9%;
@@ -26,7 +26,7 @@ html {
     --destructive-foreground: 0 0% 98%;
     --border: 210 40% 91%;
     --input: 210 40% 91%;
-    --ring: 217 91% 60%;
+    --ring: 24 95% 53%;
     --radius: 0.8rem;
   }
  
@@ -37,10 +37,10 @@ html {
     --card-foreground: 210 40% 98%;
     --popover: 210 10% 23%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 60 9% 98%;
     --secondary: 210 40% 91%;
-    --secondary-foreground: 217 91% 60%;
+    --secondary-foreground: 24 95% 53%;
     --muted: 210 10% 15%;
     --muted-foreground: 210 8% 65%;
     --accent: 210 10% 15%;
@@ -49,7 +49,7 @@ html {
     --destructive-foreground: 0 0% 98%;
     --border: 210 10% 29%;
     --input: 210 10% 29%;
-    --ring: 217 91% 60%;
+    --ring: 24 95% 53%;
   }
 }
  
@@ -63,7 +63,7 @@ html {
 }
 
 @layer utilities {
-  @keyframes-fade-in-up {
+  @keyframes keyframes-fade-in-up {
     from {
       opacity: 0;
       transform: translateY(20px);
