@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Alamat email tidak valid.' }),
@@ -36,6 +37,7 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ title, role }: LoginFormProps) {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +49,11 @@ export default function LoginForm({ title, role }: LoginFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     // TODO: Handle login logic
+    if (role === 'admin') {
+      router.push('/admin/dashboard');
+    } else {
+      router.push('/petugas/dashboard');
+    }
   }
 
   return (
