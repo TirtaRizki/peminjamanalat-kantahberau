@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   Card,
   CardContent,
@@ -49,6 +50,8 @@ const getStatusBadge = (status: string) => {
       return <Badge variant="secondary" className="text-yellow-500">{status}</Badge>;
     case 'Disetujui':
       return <Badge className="bg-green-500">{status}</Badge>;
+    case 'Dipinjam':
+        return <Badge className="bg-blue-500">{status}</Badge>;
     case 'Ditolak':
       return <Badge variant="destructive">{status}</Badge>;
     case 'Selesai':
@@ -59,22 +62,41 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function PeminjamanSayaPage() {
-  const { loans, removeLoan } = useLoans();
+  const { loans, removeLoan, updateLoanStatus } = useLoans();
   const [activeTab, setActiveTab] = useState('all');
   const { toast } = useToast();
 
   const handleCancelLoan = (loanId: string) => {
-    // In a real app, this would also update the tool's status back to 'Tersedia'
     removeLoan(loanId);
     toast({
       title: 'Pengajuan Dibatalkan',
       description: 'Permintaan peminjaman telah berhasil dibatalkan.',
     });
   };
+  
+  const generateWaLink = (message: string) => {
+    const phone = '6283160354907'; // Ganti dengan nomor WA admin
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  }
+
+  const handleTakeTool = (loan: Loan) => {
+     const message = `Halo Admin, saya ${loan.borrower} ingin mengonfirmasi pengambilan alat "${loan.tool}" (ID: ${loan.id}). Terima kasih.`;
+     window.open(generateWaLink(message), '_blank');
+     updateLoanStatus(loan.id, 'Dipinjam');
+  };
+
+  const handleReturnTool = (loan: Loan) => {
+    const message = `Halo Admin, saya ${loan.borrower} ingin mengonfirmasi pengembalian alat "${loan.tool}" (ID: ${loan.id}). Terima kasih.`;
+     window.open(generateWaLink(message), '_blank');
+  };
 
   const filteredLoans = loans.filter((loan) => {
+    // Assuming a single user for now: "Petugas Lapangan 1"
+    const isMyLoan = loan.borrower === 'Petugas Lapangan 1' || loan.borrower === 'Andi Wijaya' || loan.borrower === 'Budi Santoso' || loan.borrower === 'Citra Lestari' || loan.borrower === 'Doni Firmansyah';
+    if (!isMyLoan) return false;
+
     if (activeTab === 'all') return true;
-    if (activeTab === 'active') return loan.status === 'Disetujui' || loan.status === 'Menunggu Persetujuan';
+    if (activeTab === 'active') return ['Disetujui', 'Menunggu Persetujuan', 'Dipinjam'].includes(loan.status);
     if (activeTab === 'history') return loan.status === 'Selesai' || loan.status === 'Ditolak';
     return false;
   });
@@ -111,9 +133,7 @@ export default function PeminjamanSayaPage() {
                     <TableHead>Tgl. Kembali</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Keperluan</TableHead>
-                    <TableHead>
-                       <span className="sr-only">Aksi</span>
-                    </TableHead>
+                    <TableHead>Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -159,6 +179,16 @@ export default function PeminjamanSayaPage() {
                                 </AlertDialogFooter>
                               </AlertDialogContent>
                             </AlertDialog>
+                          )}
+                          {loan.status === 'Disetujui' && (
+                            <Button size="sm" onClick={() => handleTakeTool(loan)}>
+                              Ambil Alat
+                            </Button>
+                          )}
+                           {loan.status === 'Dipinjam' && (
+                            <Button size="sm" variant="outline" onClick={() => handleReturnTool(loan)}>
+                              Kembalikan Alat
+                            </Button>
                           )}
                         </TableCell>
                       </TableRow>

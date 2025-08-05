@@ -21,12 +21,13 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Calendar } from '@/components/ui/calendar';
 import { initialTools } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { format, addDays } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { Calendar as CalendarIcon, Upload } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { useLoans } from '@/hooks/use-loans';
@@ -39,13 +40,16 @@ export default function DaftarAlatPage() {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [isLoanFormOpen, setLoanFormOpen] = useState(false);
   const { toast } = useToast();
-  const { addLoan, loans } = useLoans();
+  const { addLoan } = useLoans();
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 5),
   });
   const [notes, setNotes] = useState('');
+  const [letter, setLetter] = useState<File | null>(null);
+  const [letterFileName, setLetterFileName] = useState('');
+
 
   const handleRequestLoan = (tool: Tool) => {
     if (tool.status !== 'Tersedia') {
@@ -59,26 +63,34 @@ export default function DaftarAlatPage() {
     setSelectedTool(tool);
     setLoanFormOpen(true);
   };
+  
+  const resetForm = () => {
+    setSelectedTool(null);
+    setNotes('');
+    setDate({ from: new Date(), to: addDays(new Date(), 5) });
+    setLetter(null);
+    setLetterFileName('');
+  }
 
   const handleLoanSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedTool || !date?.from || !date?.to || !notes) {
+    if (!selectedTool || !date?.from || !date?.to || !notes || !letter) {
       toast({
         variant: 'destructive',
         title: 'Gagal',
-        description: 'Harap isi semua kolom peminjaman.',
+        description: 'Harap isi semua kolom peminjaman, termasuk surat pengantar.',
       });
       return;
     }
 
     addLoan({
-      id: `LOAN-${String(loans.length + 1).padStart(3, '0')}`,
       borrower: 'Petugas Lapangan 1', // In a real app, this would be the logged-in user's name
       tool: selectedTool.name,
       loanDate: format(date.from, 'yyyy-MM-dd'),
       returnDate: format(date.to, 'yyyy-MM-dd'),
       status: 'Menunggu Persetujuan',
       notes: notes,
+      letter: letter.name,
     });
     
     // In a real app, you might want to update the tool's status in the backend/state
@@ -89,9 +101,7 @@ export default function DaftarAlatPage() {
     });
 
     setLoanFormOpen(false);
-    setSelectedTool(null);
-    setNotes('');
-    setDate({ from: new Date(), to: addDays(new Date(), 5) });
+    resetForm();
   };
 
   return (
@@ -150,7 +160,12 @@ export default function DaftarAlatPage() {
         ))}
       </div>
 
-      <Dialog open={isLoanFormOpen} onOpenChange={setLoanFormOpen}>
+      <Dialog open={isLoanFormOpen} onOpenChange={(isOpen) => {
+        setLoanFormOpen(isOpen);
+        if (!isOpen) {
+          resetForm();
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Form Peminjaman: {selectedTool?.name}</DialogTitle>
@@ -194,6 +209,7 @@ export default function DaftarAlatPage() {
                     selected={date}
                     onSelect={setDate}
                     numberOfMonths={2}
+                    disabled={{ before: new Date() }}
                   />
                 </PopoverContent>
               </Popover>
@@ -207,6 +223,27 @@ export default function DaftarAlatPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
+            </div>
+             <div className="grid gap-2">
+                <Label htmlFor="letter">Surat Pengantar (PDF/DOCX)</Label>
+                <Input
+                  id="letter"
+                  type="file"
+                  required
+                  accept=".pdf,.doc,.docx"
+                  onChange={(e) => {
+                     const file = e.target.files?.[0] ?? null;
+                     setLetter(file);
+                     setLetterFileName(file?.name ?? '');
+                  }}
+                  className="hidden"
+                />
+                <Button asChild variant="outline">
+                   <label htmlFor="letter" className="cursor-pointer w-full">
+                     <Upload className="mr-2 h-4 w-4" />
+                     {letterFileName || "Pilih File"}
+                   </label>
+                </Button>
             </div>
             <DialogFooter>
               <Button type="submit">Kirim Permintaan</Button>

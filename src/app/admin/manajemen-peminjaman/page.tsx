@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, FileText } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +36,8 @@ const getStatusBadge = (status: string) => {
       return <Badge variant="secondary" className="text-yellow-500">{status}</Badge>;
     case 'Disetujui':
       return <Badge className="bg-green-500">{status}</Badge>;
+    case 'Dipinjam':
+      return <Badge className="bg-blue-500">{status}</Badge>;
     case 'Ditolak':
       return <Badge variant="destructive">{status}</Badge>;
     case 'Selesai':
@@ -56,7 +58,7 @@ export default function ManajemenPeminjamanPage() {
   const filteredLoans = loans.filter((loan) => {
     if (activeTab === 'all') return true;
     if (activeTab === 'pending') return loan.status === 'Menunggu Persetujuan';
-    if (activeTab === 'approved') return loan.status === 'Disetujui';
+    if (activeTab === 'approved') return loan.status === 'Disetujui' || loan.status === 'Dipinjam';
     if (activeTab === 'completed') return loan.status === 'Selesai' || loan.status === 'Ditolak';
     return false;
   });
@@ -73,7 +75,7 @@ export default function ManajemenPeminjamanPage() {
           <TabsList>
             <TabsTrigger value="all">Semua</TabsTrigger>
             <TabsTrigger value="pending">Menunggu Persetujuan</TabsTrigger>
-            <TabsTrigger value="approved">Disetujui</TabsTrigger>
+            <TabsTrigger value="approved">Disetujui & Dipinjam</TabsTrigger>
             <TabsTrigger value="completed">Selesai/Ditolak</TabsTrigger>
           </TabsList>
         </div>
@@ -91,6 +93,7 @@ export default function ManajemenPeminjamanPage() {
                   <TableRow>
                     <TableHead>Peminjam</TableHead>
                     <TableHead>Alat</TableHead>
+                    <TableHead>Surat</TableHead>
                     <TableHead>Tgl. Pinjam</TableHead>
                     <TableHead>Tgl. Kembali</TableHead>
                     <TableHead>Status</TableHead>
@@ -105,6 +108,16 @@ export default function ManajemenPeminjamanPage() {
                     <TableRow key={loan.id}>
                       <TableCell className="font-medium">{loan.borrower}</TableCell>
                       <TableCell>{loan.tool}</TableCell>
+                      <TableCell>
+                        {loan.letter ? (
+                           <div className="flex items-center gap-2">
+                             <FileText className="h-4 w-4 text-muted-foreground" />
+                             <span className="text-sm truncate max-w-[120px]">{loan.letter}</span>
+                           </div>
+                        ) : (
+                          '-'
+                        )}
+                      </TableCell>
                       <TableCell>{loan.loanDate}</TableCell>
                       <TableCell>{loan.returnDate}</TableCell>
                       <TableCell>{getStatusBadge(loan.status)}</TableCell>
@@ -120,19 +133,25 @@ export default function ManajemenPeminjamanPage() {
                             <DropdownMenuLabel>Ubah Status</DropdownMenuLabel>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Disetujui')}
-                              disabled={loan.status === 'Disetujui' || loan.status === 'Selesai' || loan.status === 'Ditolak'}
+                              disabled={loan.status !== 'Menunggu Persetujuan'}
                             >
                               Setujui
                             </DropdownMenuItem>
+                             <DropdownMenuItem
+                              onSelect={() => handleUpdateStatus(loan.id, 'Dipinjam')}
+                              disabled={loan.status !== 'Disetujui'}
+                            >
+                              Konfirmasi Diambil
+                            </DropdownMenuItem>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Ditolak')}
-                               disabled={loan.status === 'Ditolak' || loan.status === 'Selesai'}
+                               disabled={!['Menunggu Persetujuan', 'Disetujui'].includes(loan.status)}
                             >
                               Tolak
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Selesai')}
-                               disabled={loan.status === 'Selesai' || loan.status === 'Menunggu Persetujuan'}
+                               disabled={!['Dipinjam', 'Disetujui'].includes(loan.status)}
                             >
                               Selesaikan
                             </DropdownMenuItem>
@@ -143,7 +162,7 @@ export default function ManajemenPeminjamanPage() {
                   ))
                 ) : (
                    <TableRow>
-                      <TableCell colSpan={6} className="h-24 text-center">
+                      <TableCell colSpan={7} className="h-24 text-center">
                         Tidak ada data peminjaman.
                       </TableCell>
                     </TableRow>
