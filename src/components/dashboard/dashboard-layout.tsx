@@ -122,34 +122,33 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
-              <div className="flex flex-col gap-4 p-6 h-full bg-gradient-to-br from-background via-secondary/50 to-background">
-                 <Link
-                  href="#"
-                  className="flex items-center gap-2 text-lg font-semibold mb-4"
-                >
-                  <Image src="/images/logo.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
-                  <span>SILAB Berau</span>
-                </Link>
-                <nav className="grid gap-2 text-lg font-medium">
-                {navItems.map((item, index) => {
-                  const Icon = getIcon(item.name);
-                  return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={cn(
-                      'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 hover:pl-5 transition-all duration-300',
-                      pathname === item.href && 'bg-muted text-foreground',
-                      'animate-fade-in-up'
-                    )}
-                     style={{ animationDelay: `${index * 100 + 200}ms`}}
-                  >
-                    <Icon className="h-5 w-5" />
-                    {item.name}
+            <SheetContent side="left" className="flex flex-col p-0">
+              <div className="flex h-full flex-col bg-background">
+                <div className="flex h-14 items-center border-b px-6">
+                  <Link href="/" className="flex items-center gap-2 font-semibold">
+                     <Image src="/images/logo.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
+                    <span className="">SILAB Berau</span>
                   </Link>
-                )})}
-              </nav>
+                </div>
+                <div className="flex-1 overflow-y-auto">
+                  <nav className="grid items-start p-4 text-base font-medium">
+                    {navItems.map((item, index) => {
+                      const Icon = getIcon(item.name);
+                      return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-3 text-muted-foreground transition-all hover:text-primary hover:bg-muted',
+                           pathname === item.href && 'bg-muted text-primary font-bold'
+                        )}
+                      >
+                        <Icon className="h-5 w-5" />
+                        {item.name}
+                      </Link>
+                    )})}
+                  </nav>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
