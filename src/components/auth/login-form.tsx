@@ -25,6 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Alamat email tidak valid.' }),
@@ -38,6 +39,7 @@ type LoginFormProps = {
 
 export default function LoginForm({ title, role }: LoginFormProps) {
   const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,12 +49,28 @@ export default function LoginForm({ title, role }: LoginFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // TODO: Handle login logic
+    const { email, password } = values;
+
     if (role === 'admin') {
-      router.push('/admin/dashboard');
-    } else {
-      router.push('/petugas/dashboard');
+      if (email === 'admin@kantahberau.com' && password === 'berauera2025') {
+        router.push('/admin/dashboard');
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Login Gagal',
+          description: 'Email atau password untuk admin salah.',
+        });
+      }
+    } else if (role === 'officer') {
+      if (email === 'petugas@kantahberau.com' && password === 'petugasgiat2025') {
+        router.push('/petugas/dashboard');
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Login Gagal',
+          description: 'Email atau password untuk petugas salah.',
+        });
+      }
     }
   }
 
