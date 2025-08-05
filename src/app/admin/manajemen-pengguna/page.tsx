@@ -217,75 +217,77 @@ export default function ManajemenPenggunaPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nama</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>
-                  <span className="sr-only">Actions</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="hidden h-9 w-9 sm:flex">
-                        <AvatarImage
-                          src={user.avatar}
-                          alt={user.name}
-                          data-ai-hint="avatar"
-                        />
-                        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <div className="font-medium">{user.name}</div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{getRoleBadge(user.role)}</TableCell>
-                  <TableCell>
-                    <AlertDialog>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button aria-haspopup="true" size="icon" variant="ghost">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                          <DropdownMenuItem onSelect={() => handleEdit(user)}>
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>Reset Password</DropdownMenuItem>
-                          <AlertDialogTrigger asChild>
-                             <DropdownMenuItem className="text-destructive" disabled={user.role === 'Admin'}>Hapus</DropdownMenuItem>
-                          </AlertDialogTrigger>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                           Tindakan ini tidak dapat diurungkan. Ini akan menghapus pengguna secara permanen.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Batal</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDelete(user.id)}>
-                            Ya, Hapus
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </TableCell>
+          <div className="relative w-full overflow-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nama</TableHead>
+                  <TableHead className="hidden sm:table-cell">Email</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Actions</span>
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar className="hidden h-9 w-9 sm:flex">
+                          <AvatarImage
+                            src={user.avatar}
+                            alt={user.name}
+                            data-ai-hint="avatar"
+                          />
+                          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="font-medium">{user.name}</div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">{user.email}</TableCell>
+                    <TableCell>{getRoleBadge(user.role)}</TableCell>
+                    <TableCell>
+                      <AlertDialog>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button aria-haspopup="true" size="icon" variant="ghost">
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            <DropdownMenuItem onSelect={() => handleEdit(user)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>Reset Password</DropdownMenuItem>
+                            <AlertDialogTrigger asChild>
+                               <DropdownMenuItem className="text-destructive" disabled={user.role === 'Admin'}>Hapus</DropdownMenuItem>
+                            </AlertDialogTrigger>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                             Tindakan ini tidak dapat diurungkan. Ini akan menghapus pengguna secara permanen.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Batal</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(user.id)}>
+                              Ya, Hapus
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
         <CardFooter>
           <div className="text-xs text-muted-foreground">

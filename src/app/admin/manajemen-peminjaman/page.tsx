@@ -74,9 +74,9 @@ export default function ManajemenPeminjamanPage() {
         <div className="flex items-center">
           <TabsList>
             <TabsTrigger value="all">Semua</TabsTrigger>
-            <TabsTrigger value="pending">Menunggu Persetujuan</TabsTrigger>
-            <TabsTrigger value="approved">Disetujui & Dipinjam</TabsTrigger>
-            <TabsTrigger value="completed">Selesai/Ditolak</TabsTrigger>
+            <TabsTrigger value="pending">Menunggu</TabsTrigger>
+            <TabsTrigger value="approved">Aktif</TabsTrigger>
+            <TabsTrigger value="completed">Riwayat</TabsTrigger>
           </TabsList>
         </div>
         <TabsContent value={activeTab}>
@@ -88,87 +88,89 @@ export default function ManajemenPeminjamanPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Peminjam</TableHead>
-                    <TableHead>Alat</TableHead>
-                    <TableHead>Surat</TableHead>
-                    <TableHead>Tgl. Pinjam</TableHead>
-                    <TableHead>Tgl. Kembali</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>
-                      <span className="sr-only">Actions</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                   {filteredLoans.length > 0 ? (
-                    filteredLoans.map((loan) => (
-                    <TableRow key={loan.id}>
-                      <TableCell className="font-medium">{loan.borrower}</TableCell>
-                      <TableCell>{loan.tool}</TableCell>
-                      <TableCell>
-                        {loan.letter ? (
-                           <div className="flex items-center gap-2">
-                             <FileText className="h-4 w-4 text-muted-foreground" />
-                             <span className="text-sm truncate max-w-[120px]">{loan.letter}</span>
-                           </div>
-                        ) : (
-                          '-'
-                        )}
-                      </TableCell>
-                      <TableCell>{loan.loanDate}</TableCell>
-                      <TableCell>{loan.returnDate}</TableCell>
-                      <TableCell>{getStatusBadge(loan.status)}</TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button aria-haspopup="true" size="icon" variant="ghost">
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span className="sr-only">Toggle menu</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Ubah Status</DropdownMenuLabel>
-                            <DropdownMenuItem
-                              onSelect={() => handleUpdateStatus(loan.id, 'Disetujui')}
-                              disabled={loan.status !== 'Menunggu Persetujuan'}
-                            >
-                              Setujui
-                            </DropdownMenuItem>
-                             <DropdownMenuItem
-                              onSelect={() => handleUpdateStatus(loan.id, 'Dipinjam')}
-                              disabled={loan.status !== 'Disetujui'}
-                            >
-                              Konfirmasi Diambil
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onSelect={() => handleUpdateStatus(loan.id, 'Ditolak')}
-                               disabled={!['Menunggu Persetujuan', 'Disetujui'].includes(loan.status)}
-                            >
-                              Tolak
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onSelect={() => handleUpdateStatus(loan.id, 'Selesai')}
-                               disabled={!['Dipinjam', 'Disetujui'].includes(loan.status)}
-                            >
-                              Selesaikan
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
+              <div className="relative w-full overflow-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Peminjam</TableHead>
+                      <TableHead>Alat</TableHead>
+                      <TableHead className="hidden sm:table-cell">Surat</TableHead>
+                      <TableHead className="hidden md:table-cell">Tgl. Pinjam</TableHead>
+                      <TableHead className="hidden md:table-cell">Tgl. Kembali</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>
+                        <span className="sr-only">Actions</span>
+                      </TableHead>
                     </TableRow>
-                  ))
-                ) : (
-                   <TableRow>
-                      <TableCell colSpan={7} className="h-24 text-center">
-                        Tidak ada data peminjaman.
-                      </TableCell>
-                    </TableRow>
-                )}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                     {filteredLoans.length > 0 ? (
+                      filteredLoans.map((loan) => (
+                      <TableRow key={loan.id}>
+                        <TableCell className="font-medium">{loan.borrower}</TableCell>
+                        <TableCell>{loan.tool}</TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {loan.letter ? (
+                             <div className="flex items-center gap-2">
+                               <FileText className="h-4 w-4 text-muted-foreground" />
+                               <span className="text-sm truncate max-w-[120px]">{loan.letter}</span>
+                             </div>
+                          ) : (
+                            '-'
+                          )}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{loan.loanDate}</TableCell>
+                        <TableCell className="hidden md:table-cell">{loan.returnDate}</TableCell>
+                        <TableCell>{getStatusBadge(loan.status)}</TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button aria-haspopup="true" size="icon" variant="ghost">
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Ubah Status</DropdownMenuLabel>
+                              <DropdownMenuItem
+                                onSelect={() => handleUpdateStatus(loan.id, 'Disetujui')}
+                                disabled={loan.status !== 'Menunggu Persetujuan'}
+                              >
+                                Setujui
+                              </DropdownMenuItem>
+                               <DropdownMenuItem
+                                onSelect={() => handleUpdateStatus(loan.id, 'Dipinjam')}
+                                disabled={loan.status !== 'Disetujui'}
+                              >
+                                Konfirmasi Diambil
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onSelect={() => handleUpdateStatus(loan.id, 'Ditolak')}
+                                 disabled={!['Menunggu Persetujuan', 'Disetujui'].includes(loan.status)}
+                              >
+                                Tolak
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onSelect={() => handleUpdateStatus(loan.id, 'Selesai')}
+                                 disabled={!['Dipinjam', 'Disetujui'].includes(loan.status)}
+                              >
+                                Selesaikan
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                     <TableRow>
+                        <TableCell colSpan={7} className="h-24 text-center">
+                          Tidak ada data peminjaman.
+                        </TableCell>
+                      </TableRow>
+                  )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
             <CardFooter>
               <div className="text-xs text-muted-foreground">

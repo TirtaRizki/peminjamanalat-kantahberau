@@ -204,101 +204,103 @@ export default function ManajemenAlatPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="hidden w-[100px] sm:table-cell">
-                  <span className="sr-only">Image</span>
-                </TableHead>
-                <TableHead>Nama Alat</TableHead>
-                <TableHead>Jenis</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Kondisi</TableHead>
-                <TableHead>
-                  <span className="sr-only">Actions</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tools.map((tool) => (
-                <TableRow key={tool.id}>
-                  <TableCell className="hidden sm:table-cell">
-                    <Image
-                      alt={tool.name}
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src={tool.image}
-                      width="64"
-                      data-ai-hint="surveying tool"
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">{tool.name}</TableCell>
-                  <TableCell>{tool.type}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        tool.status === 'Tersedia' ? 'outline' : 'secondary'
-                      }
-                      className={
-                        tool.status === 'Tersedia'
-                          ? 'border-green-500 text-green-500'
-                          : 'text-red-500'
-                      }
-                    >
-                      {tool.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        tool.condition === 'Baik' ? 'default' : 'destructive'
-                      }
-                      className={tool.condition === 'Baik' ? 'bg-blue-500' : ''}
-                    >
-                      {tool.condition}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <AlertDialog>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button aria-haspopup="true" size="icon" variant="ghost">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                          <DropdownMenuItem onSelect={() => handleEdit(tool)}>
-                            Edit
-                          </DropdownMenuItem>
-                          <AlertDialogTrigger asChild>
-                            <DropdownMenuItem className="text-destructive">
-                              Hapus
-                            </DropdownMenuItem>
-                          </AlertDialogTrigger>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Tindakan ini tidak dapat diurungkan. Ini akan menghapus alat secara permanen dari server.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Batal</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDelete(tool.id)}>
-                            Ya, Hapus
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </TableCell>
+          <div className="relative w-full overflow-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="hidden w-[100px] sm:table-cell">
+                    <span className="sr-only">Image</span>
+                  </TableHead>
+                  <TableHead>Nama Alat</TableHead>
+                  <TableHead className="hidden md:table-cell">Jenis</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Kondisi</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Actions</span>
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {tools.map((tool) => (
+                  <TableRow key={tool.id}>
+                    <TableCell className="hidden sm:table-cell">
+                      <Image
+                        alt={tool.name}
+                        className="aspect-square rounded-md object-cover"
+                        height="64"
+                        src={tool.image}
+                        width="64"
+                        data-ai-hint="surveying tool"
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">{tool.name}</TableCell>
+                    <TableCell className="hidden md:table-cell">{tool.type}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          tool.status === 'Tersedia' ? 'outline' : 'secondary'
+                        }
+                        className={
+                          tool.status === 'Tersedia'
+                            ? 'border-green-500 text-green-500'
+                            : 'text-red-500'
+                        }
+                      >
+                        {tool.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          tool.condition === 'Baik' ? 'default' : 'destructive'
+                        }
+                        className={tool.condition === 'Baik' ? 'bg-blue-500' : ''}
+                      >
+                        {tool.condition}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <AlertDialog>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button aria-haspopup="true" size="icon" variant="ghost">
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            <DropdownMenuItem onSelect={() => handleEdit(tool)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <AlertDialogTrigger asChild>
+                              <DropdownMenuItem className="text-destructive">
+                                Hapus
+                              </DropdownMenuItem>
+                            </AlertDialogTrigger>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Tindakan ini tidak dapat diurungkan. Ini akan menghapus alat secara permanen dari server.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Batal</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(tool.id)}>
+                              Ya, Hapus
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
         <CardFooter>
           <div className="text-xs text-muted-foreground">

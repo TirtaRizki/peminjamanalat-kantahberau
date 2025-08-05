@@ -125,83 +125,85 @@ export default function PeminjamanSayaPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Alat</TableHead>
-                    <TableHead>Tgl. Pinjam</TableHead>
-                    <TableHead>Tgl. Kembali</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Keperluan</TableHead>
-                    <TableHead>Aksi</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredLoans.length > 0 ? (
-                    filteredLoans.map((loan) => (
-                      <TableRow key={loan.id}>
-                        <TableCell className="font-medium">{loan.tool}</TableCell>
-                        <TableCell>{loan.loanDate}</TableCell>
-                        <TableCell>{loan.returnDate}</TableCell>
-                        <TableCell>{getStatusBadge(loan.status)}</TableCell>
-                        <TableCell>{loan.notes}</TableCell>
-                        <TableCell>
-                          {loan.status === 'Menunggu Persetujuan' && (
-                             <AlertDialog>
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <Button aria-haspopup="true" size="icon" variant="ghost">
-                                    <MoreHorizontal className="h-4 w-4" />
-                                    <span className="sr-only">Toggle menu</span>
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                  <AlertDialogTrigger asChild>
-                                    <DropdownMenuItem className="text-destructive">
-                                      Batalkan Pengajuan
-                                    </DropdownMenuItem>
-                                  </AlertDialogTrigger>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Tindakan ini akan membatalkan permintaan peminjaman Anda. Anda tidak dapat mengurungkan tindakan ini.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Batal</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => handleCancelLoan(loan.id)}>
-                                    Ya, Batalkan
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                          )}
-                          {loan.status === 'Disetujui' && (
-                            <Button size="sm" onClick={() => handleTakeTool(loan)}>
-                              Ambil Alat
-                            </Button>
-                          )}
-                           {loan.status === 'Dipinjam' && (
-                            <Button size="sm" variant="outline" onClick={() => handleReturnTool(loan)}>
-                              Kembalikan Alat
-                            </Button>
-                          )}
+              <div className="relative w-full overflow-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Alat</TableHead>
+                      <TableHead className="hidden md:table-cell">Tgl. Pinjam</TableHead>
+                      <TableHead className="hidden md:table-cell">Tgl. Kembali</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead className="hidden sm:table-cell">Keperluan</TableHead>
+                      <TableHead>Aksi</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredLoans.length > 0 ? (
+                      filteredLoans.map((loan) => (
+                        <TableRow key={loan.id}>
+                          <TableCell className="font-medium">{loan.tool}</TableCell>
+                          <TableCell className="hidden md:table-cell">{loan.loanDate}</TableCell>
+                          <TableCell className="hidden md:table-cell">{loan.returnDate}</TableCell>
+                          <TableCell>{getStatusBadge(loan.status)}</TableCell>
+                          <TableCell className="hidden sm:table-cell">{loan.notes}</TableCell>
+                          <TableCell>
+                            {loan.status === 'Menunggu Persetujuan' && (
+                               <AlertDialog>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button aria-haspopup="true" size="icon" variant="ghost">
+                                      <MoreHorizontal className="h-4 w-4" />
+                                      <span className="sr-only">Toggle menu</span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                    <AlertDialogTrigger asChild>
+                                      <DropdownMenuItem className="text-destructive">
+                                        Batalkan Pengajuan
+                                      </DropdownMenuItem>
+                                    </AlertDialogTrigger>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Tindakan ini akan membatalkan permintaan peminjaman Anda. Anda tidak dapat mengurungkan tindakan ini.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Batal</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => handleCancelLoan(loan.id)}>
+                                      Ya, Batalkan
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
+                            {loan.status === 'Disetujui' && (
+                              <Button size="sm" onClick={() => handleTakeTool(loan)}>
+                                Ambil Alat
+                              </Button>
+                            )}
+                             {loan.status === 'Dipinjam' && (
+                              <Button size="sm" variant="outline" onClick={() => handleReturnTool(loan)}>
+                                Kembalikan Alat
+                              </Button>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={6} className="h-24 text-center">
+                          Tidak ada data peminjaman.
                         </TableCell>
                       </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={6} className="h-24 text-center">
-                        Tidak ada data peminjaman.
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
              <CardFooter>
               <div className="text-xs text-muted-foreground">
