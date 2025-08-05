@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full border-b transition-all duration-300",
-      hasScrolled ? "border-border bg-background/80 backdrop-blur-lg shadow-sm" : "border-transparent bg-transparent"
+      hasScrolled ? "border-border bg-background/80 backdrop-blur-lg shadow-sm" : "border-transparent bg-background"
     )}>
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
@@ -77,22 +77,25 @@ export default function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[240px]">
-              <div className="flex flex-col gap-6 p-6">
+            <SheetContent side="right" className="w-[240px] bg-gradient-to-br from-background via-secondary/50 to-background p-0">
+              <div className="flex flex-col gap-4 p-6 h-full">
                  <Link href="/" className="flex items-center gap-2 mb-4" onClick={() => setMobileMenuOpen(false)}>
                   <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
-                  <span className="font-bold text-lg">SILAB Berau</span>
+                  <span className="font-bold text-lg text-foreground">SILAB Berau</span>
                 </Link>
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-lg font-medium"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+                <div className="flex flex-col gap-2">
+                  {navLinks.map((link, index) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-lg font-medium p-3 rounded-md transition-all duration-300 hover:bg-primary/10 hover:pl-5 animate-fade-in-up"
+                      style={{ animationDelay: `${index * 100 + 200}ms`}}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
