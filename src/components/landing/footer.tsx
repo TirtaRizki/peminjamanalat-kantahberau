@@ -27,29 +27,29 @@ export default function Footer() {
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold text-foreground mb-4">ALAMAT</h3>
             <div className="space-y-2 text-muted-foreground">
-              <p className="flex items-center justify-center md:justify-start gap-2">
-                <MapPin className="h-5 w-5 text-primary" />
+              <p className="flex items-center justify-center md:justify-start gap-2 group">
+                <MapPin className="h-5 w-5 text-primary group-hover:text-foreground transition-colors" />
                 <span>Jalan Dr. Marjuni No. 1, Tanjung Redep</span>
               </p>
-              <p className="flex items-center justify-center md:justify-start gap-2">
-                <Phone className="h-5 w-5 text-primary" />
+              <p className="flex items-center justify-center md:justify-start gap-2 group">
+                <Phone className="h-5 w-5 text-primary group-hover:text-foreground transition-colors" />
                 <span>Telepon +6283160354907</span>
               </p>
             </div>
             <div className="flex justify-center md:justify-start gap-2 mt-4">
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" asChild className="group">
                 <Link href="#">
-                  <Facebook className="h-5 w-5" />
+                  <Facebook className="h-5 w-5 group-hover:scale-125 transition-transform" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" asChild className="group">
                 <Link href="#">
-                  <Twitter className="h-5 w-5" />
+                  <Twitter className="h-5 w-5 group-hover:scale-125 transition-transform" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="ghost" size="icon" asChild className="group">
                 <Link href="#">
-                  <Instagram className="h-5 w-5" />
+                  <Instagram className="h-5 w-5 group-hover:scale-125 transition-transform" />
                 </Link>
               </Button>
             </div>
@@ -68,10 +68,10 @@ export default function Footer() {
       </div>
       <Button
         onClick={scrollToTop}
-        className="absolute bottom-8 right-8 rounded-full h-12 w-12 z-20"
+        className="absolute bottom-8 right-8 rounded-full h-12 w-12 z-20 group"
         aria-label="Scroll to top"
       >
-        <ArrowUp className="h-6 w-6" />
+        <ArrowUp className="h-6 w-6 group-hover:-translate-y-1 transition-transform" />
       </Button>
     </footer>
   );

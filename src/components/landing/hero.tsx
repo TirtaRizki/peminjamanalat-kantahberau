@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -19,10 +20,10 @@ export default function Hero() {
               Kantor Pertanahan Kabupaten Berau
             </p>
             <div className="mt-8 flex gap-4 justify-center md:justify-start">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="group">
                 <Link href="#katalog">
                   Lihat Katalog Alat
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">

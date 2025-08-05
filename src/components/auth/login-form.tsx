@@ -106,9 +106,9 @@ export default function LoginForm({ title, role }: LoginFormProps) {
             </Form>
           </CardContent>
           <CardFooter className="flex-col">
-            <Button variant="link" asChild className="text-muted-foreground">
+            <Button variant="link" asChild className="text-muted-foreground group">
               <Link href="/">
-                <ArrowLeft className="mr-2 h-4 w-4" />
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                 Kembali ke Beranda
               </Link>
             </Button>

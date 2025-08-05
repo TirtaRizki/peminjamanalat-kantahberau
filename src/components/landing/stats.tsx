@@ -8,10 +8,10 @@ export default function Stats() {
     <section className="py-20 md:py-24 bg-secondary/70">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
+          <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20 group">
             <CardHeader>
               <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                <PackageSearch className="h-10 w-10 text-primary" />
+                <PackageSearch className="h-10 w-10 text-primary group-hover:animate-bounce" />
               </div>
             </CardHeader>
             <CardContent>
@@ -20,10 +20,10 @@ export default function Stats() {
               <p className="mt-1 text-muted-foreground">Tersedia untuk dipinjam.</p>
             </CardContent>
           </Card>
-          <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
+          <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20 group">
             <CardHeader>
               <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                <ShieldCheck className="h-10 w-10 text-primary" />
+                <ShieldCheck className="h-10 w-10 text-primary group-hover:animate-pulse" />
               </div>
             </CardHeader>
             <CardContent>

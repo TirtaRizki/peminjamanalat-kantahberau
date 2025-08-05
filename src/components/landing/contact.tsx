@@ -15,9 +15,9 @@ export default function Contact() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="space-y-8">
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <MapPin className="h-6 w-6 text-primary" />
+                <MapPin className="h-6 w-6 text-primary group-hover:animate-ping" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Alamat Kantor</h3>
@@ -27,18 +27,18 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <Phone className="h-6 w-6 text-primary" />
+                <Phone className="h-6 w-6 text-primary group-hover:animate-shake" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Telepon</h3>
                 <p className="text-muted-foreground mt-1">+6283160354907</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <Mail className="h-6 w-6 text-primary" />
+                <Mail className="h-6 w-6 text-primary group-hover:animate-pulse" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Email</h3>

@@ -55,10 +55,10 @@ export default function Sop() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {features.map((feature, index) => (
-              <Card key={index} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card key={index} className="shadow-lg hover:shadow-xl transition-shadow duration-300 group">
                 <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2">
                   <div className="bg-primary/10 p-3 rounded-full">
-                    <feature.icon className="h-6 w-6 text-primary" />
+                    <feature.icon className="h-6 w-6 text-primary group-hover:scale-125 transition-transform duration-300" />
                   </div>
                   <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
                 </CardHeader>
