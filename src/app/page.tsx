@@ -7,6 +7,7 @@ import Sop from '@/components/landing/sop';
 import Catalog from '@/components/landing/catalog';
 import Contact from '@/components/landing/contact';
 import Footer from '@/components/landing/footer';
+import Chatbot from '@/components/landing/chatbot';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Catalog />
         <Contact />
       </main>
+      <Chatbot />
       <Footer />
     </div>
   );
