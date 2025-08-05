@@ -17,8 +17,8 @@ export default function Catalog() {
             Jelajahi berbagai jenis peralatan survey yang kami sediakan.
           </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6">
-          {initialTools.slice(0, 14).map((tool) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 justify-center">
+          {initialTools.slice(0, 6).map((tool) => (
             <Card key={tool.id} className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <CardContent className="p-0">
                 <div className="aspect-square relative">
