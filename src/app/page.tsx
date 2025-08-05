@@ -1,5 +1,4 @@
 'use client';
-import { useEffect } from 'react';
 import Header from '@/components/landing/header';
 import Hero from '@/components/landing/hero';
 import About from '@/components/landing/about';
@@ -10,35 +9,6 @@ import Contact from '@/components/landing/contact';
 import Footer from '@/components/landing/footer';
 
 export default function Home() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-
-    return () => {
-      sections.forEach((section) => {
-        // Check if observer is still observing before unobserving
-        // This avoids errors if the component unmounts before observer is fully initialized
-        if (observer) {
-          observer.unobserve(section);
-        }
-      });
-    };
-  }, []);
-  
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
