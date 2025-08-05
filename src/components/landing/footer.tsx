@@ -1,20 +1,78 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { ArrowUp, Facebook, Instagram, Twitter, MapPin, Phone } from 'lucide-react';
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
-    <footer className="bg-background border-t">
-      <div className="container mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
-            <span className="font-bold">SILAB Berau</span>
+    <footer className="relative bg-secondary/70 text-secondary-foreground pt-20 pb-10 border-t overflow-hidden">
+      <Image
+        src="https://placehold.co/1920x800.png"
+        alt="BPN Berau Team"
+        layout="fill"
+        objectFit="cover"
+        className="absolute inset-0 z-0 opacity-20"
+        data-ai-hint="office team"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0"></div>
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          <div className="md:col-span-1">
+            <h3 className="text-xl font-bold text-foreground mb-4">ALAMAT</h3>
+            <div className="space-y-2 text-muted-foreground">
+              <p className="flex items-center justify-center md:justify-start gap-2">
+                <MapPin className="h-5 w-5 text-primary" />
+                <span>Jalan Dr. Marjuni No. 1, Tanjung Redep</span>
+              </p>
+              <p className="flex items-center justify-center md:justify-start gap-2">
+                <Phone className="h-5 w-5 text-primary" />
+                <span>Telepon +62 554 21803</span>
+              </p>
+            </div>
+            <div className="flex justify-center md:justify-start gap-2 mt-4">
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="#">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="#">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="#">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Kantor Pertanahan Kabupaten Berau. All rights reserved.
-          </p>
+          <div className="md:col-span-2 flex flex-col items-center md:items-end justify-between">
+             <Link href="/" className="flex items-center gap-2 mb-4">
+              <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
+              <span className="font-bold text-lg text-foreground">SILAB Berau</span>
+            </Link>
+          </div>
+        </div>
+        <div className="mt-12 border-t border-border/50 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground gap-4">
+          <p>© {new Date().getFullYear()} Hak Cipta Kantor Pertanahan Kab. Berau.</p>
+          <p>Designed UI Project By Tirta Rizki R.</p>
         </div>
       </div>
+      <Button
+        onClick={scrollToTop}
+        className="absolute bottom-8 right-8 rounded-full h-12 w-12 z-20"
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="h-6 w-6" />
+      </Button>
     </footer>
   );
 }
