@@ -8,48 +8,48 @@ html {
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 33 60% 98%; /* Off-White */
     --foreground: 210 10% 23%;
-    --card: 210 40% 100%;
+    --card: 33 60% 100%;
     --card-foreground: 210 10% 23%;
-    --popover: 210 40% 100%;
+    --popover: 33 60% 100%;
     --popover-foreground: 210 10% 23%;
-    --primary: 24 95% 53%;
-    --primary-foreground: 60 9% 98%;
-    --secondary: 210 40% 91%;
-    --secondary-foreground: 24 95% 53%;
-    --muted: 210 40% 96%;
+    --primary: 33 100% 50%; /* Modern Orange */
+    --primary-foreground: 33 100% 98%;
+    --secondary: 33 60% 91%;
+    --secondary-foreground: 33 100% 40%;
+    --muted: 33 60% 96%;
     --muted-foreground: 210 8% 45%;
-    --accent: 24 9.8% 83.9%;
+    --accent: 30 100% 40%; /* Burnt Orange */
     --accent-foreground: 210 10% 23%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 40% 91%;
-    --input: 210 40% 91%;
-    --ring: 24 95% 53%;
+    --border: 33 60% 91%;
+    --input: 33 60% 91%;
+    --ring: 33 100% 50%;
     --radius: 0.8rem;
   }
  
   .dark {
     --background: 210 10% 23%;
-    --foreground: 210 40% 98%;
+    --foreground: 33 60% 98%;
     --card: 210 10% 23%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 33 60% 98%;
     --popover: 210 10% 23%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 24 95% 53%;
-    --primary-foreground: 60 9% 98%;
-    --secondary: 210 40% 91%;
-    --secondary-foreground: 24 95% 53%;
+    --popover-foreground: 33 60% 98%;
+    --primary: 33 100% 50%;
+    --primary-foreground: 33 100% 98%;
+    --secondary: 33 60% 91%;
+    --secondary-foreground: 33 100% 40%;
     --muted: 210 10% 15%;
     --muted-foreground: 210 8% 65%;
-    --accent: 210 10% 15%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 30 100% 40%;
+    --accent-foreground: 33 60% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 10% 29%;
     --input: 210 10% 29%;
-    --ring: 24 95% 53%;
+    --ring: 33 100% 50%;
   }
 }
  
@@ -76,5 +76,11 @@ html {
 
   section {
     animation: keyframes-fade-in-up 0.8s ease-out forwards;
+  }
+
+  @keyframes keyframes-shake {
+    '0%, 100%' a{ transform: translateX(0); }
+    '10%, 30%, 50%, 70%, 90%' { transform: translateX(-5px); }
+    '20%, 40%, 60%, 80%' { transform: translateX(5px); }
   }
 }

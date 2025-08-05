@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { initialTools } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Catalog() {
   return (
@@ -16,7 +18,7 @@ export default function Catalog() {
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6">
-          {initialTools.map((tool) => (
+          {initialTools.slice(0, 14).map((tool) => (
             <Card key={tool.id} className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <CardContent className="p-0">
                 <div className="aspect-square relative">
@@ -35,6 +37,11 @@ export default function Catalog() {
               </CardHeader>
             </Card>
           ))}
+        </div>
+        <div className="text-center mt-12">
+          <Button asChild size="lg">
+            <Link href="/login/officer">Lihat Semua & Pinjam Alat</Link>
+          </Button>
         </div>
       </div>
     </section>

@@ -75,10 +75,13 @@ export default function LoginForm({ title, role }: LoginFormProps) {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-secondary/70 p-4 relative">
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-background -skew-y-6"></div>
+    <div className="flex min-h-screen w-full items-center justify-center bg-secondary/70 p-4 relative overflow-hidden">
+       <div className="absolute top-0 left-0 right-0 h-1/2 bg-background -skew-y-6 origin-top-left"></div>
+       <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/20 rounded-full animate-pulse"></div>
+       <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-primary/20 rounded-full animate-pulse delay-500"></div>
+
       <div className="relative z-10 w-full max-w-md">
-        <Card className="shadow-2xl">
+        <Card className="shadow-2xl animate-fade-in-up">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4">
               <Image
@@ -86,7 +89,7 @@ export default function LoginForm({ title, role }: LoginFormProps) {
                 alt="SILAB Berau Logo"
                 width={80}
                 height={80}
-                className="rounded-full"
+                className="rounded-full shadow-lg"
                 data-ai-hint="logo"
               />
             </div>
