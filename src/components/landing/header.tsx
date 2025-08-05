@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
-import { ClipboardList, Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -27,7 +28,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <ClipboardList className="h-6 w-6 text-primary" />
+          <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
           <span className="font-bold text-lg">SILAB Berau</span>
         </Link>
         <nav className="hidden md:flex gap-6">
@@ -44,7 +45,7 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">Login</Button>
+              <Button>Login</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
@@ -66,7 +67,7 @@ export default function Header() {
             <SheetContent side="right" className="w-[240px]">
               <div className="flex flex-col gap-6 p-6">
                  <Link href="/" className="flex items-center gap-2 mb-4" onClick={() => setMobileMenuOpen(false)}>
-                  <ClipboardList className="h-6 w-6 text-primary" />
+                  <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={32} height={32} className="h-8 w-8 rounded-md" data-ai-hint="logo" />
                   <span className="font-bold text-lg">SILAB Berau</span>
                 </Link>
                 {navLinks.map((link) => (

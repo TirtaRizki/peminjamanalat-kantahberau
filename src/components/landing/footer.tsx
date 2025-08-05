@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ClipboardList } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <ClipboardList className="h-5 w-5 text-primary" />
+            <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
             <span className="font-bold">SILAB Berau</span>
           </div>
           <p className="text-sm text-muted-foreground">
