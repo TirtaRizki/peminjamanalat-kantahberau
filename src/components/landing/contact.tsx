@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
@@ -48,15 +47,16 @@ export default function Contact() {
             </div>
           </div>
           <Card className="overflow-hidden shadow-2xl">
-            <CardContent className="p-0">
-               <Image
-                src="https://placehold.co/600x400.png"
-                alt="Map location of BPN Berau office"
-                width={600}
-                height={400}
-                className="w-full h-full object-cover"
-                data-ai-hint="map location"
-              />
+            <CardContent className="p-0 h-full">
+               <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.017611164208!2d117.500487575985!3d2.1469428584933556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320df4fff085da65%3A0x93dbf250f6104bc8!2sBPN!5e0!3m2!1sid!2sid!4v1754402113907!5m2!1sid!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </CardContent>
           </Card>
         </div>
