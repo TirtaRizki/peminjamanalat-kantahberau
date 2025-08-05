@@ -19,6 +19,28 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { MoreHorizontal } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { useToast } from '@/hooks/use-toast';
+
 
 // Mock data for officer's loans
 const officerLoans = [
@@ -69,6 +91,16 @@ const getStatusBadge = (status: string) => {
 export default function PeminjamanSayaPage() {
   const [loans, setLoans] = useState<Loan[]>(officerLoans);
   const [activeTab, setActiveTab] = useState('all');
+  const { toast } = useToast();
+
+  const handleCancelLoan = (loanId: string) => {
+    // In a real app, this would also update the tool's status back to 'Tersedia'
+    setLoans(loans.filter(loan => loan.id !== loanId));
+    toast({
+      title: 'Pengajuan Dibatalkan',
+      description: 'Permintaan peminjaman telah berhasil dibatalkan.',
+    });
+  };
 
   const filteredLoans = loans.filter((loan) => {
     if (activeTab === 'all') return true;
@@ -109,6 +141,9 @@ export default function PeminjamanSayaPage() {
                     <TableHead>Tgl. Kembali</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Keperluan</TableHead>
+                    <TableHead>
+                       <span className="sr-only">Aksi</span>
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -120,11 +155,47 @@ export default function PeminjamanSayaPage() {
                         <TableCell>{loan.returnDate}</TableCell>
                         <TableCell>{getStatusBadge(loan.status)}</TableCell>
                         <TableCell>{loan.notes}</TableCell>
+                        <TableCell>
+                          {loan.status === 'Menunggu Persetujuan' && (
+                             <AlertDialog>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button aria-haspopup="true" size="icon" variant="ghost">
+                                    <MoreHorizontal className="h-4 w-4" />
+                                    <span className="sr-only">Toggle menu</span>
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                  <AlertDialogTrigger asChild>
+                                    <DropdownMenuItem className="text-destructive">
+                                      Batalkan Pengajuan
+                                    </DropdownMenuItem>
+                                  </AlertDialogTrigger>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Anda yakin?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Tindakan ini akan membatalkan permintaan peminjaman Anda. Anda tidak dapat mengurungkan tindakan ini.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Batal</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleCancelLoan(loan.id)}>
+                                    Ya, Batalkan
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={5} className="h-24 text-center">
+                      <TableCell colSpan={6} className="h-24 text-center">
                         Tidak ada data peminjaman.
                       </TableCell>
                     </TableRow>
