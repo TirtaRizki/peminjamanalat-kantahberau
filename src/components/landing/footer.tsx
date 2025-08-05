@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-border/50 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground gap-4">
           <p>© {new Date().getFullYear()} Hak Cipta Kantor Pertanahan Kab. Berau.</p>
-          <p>Fullstack Developer By Tirta Rizki Ramadhan</p>
+          <p>Fullstack Developer By Tirta Rizki Ramadhan @ 2025 all right reserved</p>
         </div>
       </div>
       <Button
