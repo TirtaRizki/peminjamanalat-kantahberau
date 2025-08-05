@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { UserProvider } from '@/hooks/use-users-provider';
+import { LoanProvider } from '@/hooks/use-loans-provider';
 
 export const metadata: Metadata = {
   title: 'SILAB Berau - Sistem Informasi Laboratorium',
@@ -22,8 +23,10 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <UserProvider>
-          {children}
-          <Toaster />
+          <LoanProvider>
+            {children}
+            <Toaster />
+          </LoanProvider>
         </UserProvider>
       </body>
     </html>

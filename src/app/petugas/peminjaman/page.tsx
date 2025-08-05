@@ -40,38 +40,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
+import { useLoans, Loan } from '@/hooks/use-loans';
 
-
-// Mock data for officer's loans
-const officerLoans = [
-  {
-    id: 'LOAN-002',
-    tool: 'GPS Geodetik',
-    loanDate: '2024-07-28',
-    returnDate: '2024-08-02',
-    status: 'Disetujui',
-    notes: 'Survei untuk proyek jalan tol seksi 3.'
-  },
-  {
-    id: 'LOAN-005',
-    borrower: 'Budi Santoso',
-    tool: 'Drone RTK',
-    loanDate: '2024-08-10',
-    returnDate: '2024-08-15',
-    status: 'Menunggu Persetujuan',
-    notes: 'Pemetaan topografi area perkebunan kelapa sawit.'
-  },
-  {
-    id: 'LOAN-006',
-    tool: 'Waterpass',
-    loanDate: '2024-07-15',
-    returnDate: '2024-07-20',
-    status: 'Selesai',
-    notes: 'Pekerjaan levelling untuk konstruksi gedung.'
-  },
-];
-
-type Loan = typeof officerLoans[0];
 
 const getStatusBadge = (status: string) => {
   switch (status) {
@@ -89,13 +59,13 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function PeminjamanSayaPage() {
-  const [loans, setLoans] = useState<Loan[]>(officerLoans);
+  const { loans, removeLoan } = useLoans();
   const [activeTab, setActiveTab] = useState('all');
   const { toast } = useToast();
 
   const handleCancelLoan = (loanId: string) => {
     // In a real app, this would also update the tool's status back to 'Tersedia'
-    setLoans(loans.filter(loan => loan.id !== loanId));
+    removeLoan(loanId);
     toast({
       title: 'Pengajuan Dibatalkan',
       description: 'Permintaan peminjaman telah berhasil dibatalkan.',

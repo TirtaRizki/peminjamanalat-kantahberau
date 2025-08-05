@@ -27,55 +27,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-const initialLoans = [
-  {
-    id: 'LOAN-001',
-    borrower: 'Andi Wijaya',
-    tool: 'Total Station',
-    loanDate: '2024-08-01',
-    returnDate: '2024-08-05',
-    status: 'Menunggu Persetujuan',
-  },
-  {
-    id: 'LOAN-002',
-    borrower: 'Budi Santoso',
-    tool: 'GPS Geodetik',
-    loanDate: '2024-07-28',
-    returnDate: '2024-08-02',
-    status: 'Disetujui',
-  },
-  {
-    id: 'LOAN-003',
-    borrower: 'Citra Lestari',
-    tool: 'Waterpass',
-    loanDate: '2024-07-25',
-    returnDate: '2024-07-30',
-    status: 'Selesai',
-  },
-  {
-    id: 'LOAN-004',
-    borrower: 'Doni Firmansyah',
-    tool: 'Theodolite',
-    loanDate: '2024-07-20',
-    returnDate: '2024-07-22',
-    status: 'Ditolak',
-  },
-];
-
-type Loan = typeof initialLoans[0];
+import { useLoans, Loan } from '@/hooks/use-loans';
 
 const getStatusBadge = (status: string) => {
   switch (status) {
@@ -93,11 +46,11 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function ManajemenPeminjamanPage() {
-  const [loans, setLoans] = useState<Loan[]>(initialLoans);
+  const { loans, updateLoanStatus } = useLoans();
   const [activeTab, setActiveTab] = useState('all');
 
   const handleUpdateStatus = (id: string, status: Loan['status']) => {
-    setLoans(loans.map((loan) => (loan.id === id ? { ...loan, status } : loan)));
+    updateLoanStatus(id, status);
   };
 
   const filteredLoans = loans.filter((loan) => {
@@ -147,7 +100,8 @@ export default function ManajemenPeminjamanPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredLoans.map((loan) => (
+                   {filteredLoans.length > 0 ? (
+                    filteredLoans.map((loan) => (
                     <TableRow key={loan.id}>
                       <TableCell className="font-medium">{loan.borrower}</TableCell>
                       <TableCell>{loan.tool}</TableCell>
@@ -166,19 +120,19 @@ export default function ManajemenPeminjamanPage() {
                             <DropdownMenuLabel>Ubah Status</DropdownMenuLabel>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Disetujui')}
-                              disabled={loan.status === 'Disetujui'}
+                              disabled={loan.status === 'Disetujui' || loan.status === 'Selesai' || loan.status === 'Ditolak'}
                             >
                               Setujui
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Ditolak')}
-                               disabled={loan.status === 'Ditolak'}
+                               disabled={loan.status === 'Ditolak' || loan.status === 'Selesai'}
                             >
                               Tolak
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onSelect={() => handleUpdateStatus(loan.id, 'Selesai')}
-                               disabled={loan.status === 'Selesai'}
+                               disabled={loan.status === 'Selesai' || loan.status === 'Menunggu Persetujuan'}
                             >
                               Selesaikan
                             </DropdownMenuItem>
@@ -186,13 +140,20 @@ export default function ManajemenPeminjamanPage() {
                         </DropdownMenu>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))
+                ) : (
+                   <TableRow>
+                      <TableCell colSpan={6} className="h-24 text-center">
+                        Tidak ada data peminjaman.
+                      </TableCell>
+                    </TableRow>
+                )}
                 </TableBody>
               </Table>
             </CardContent>
             <CardFooter>
               <div className="text-xs text-muted-foreground">
-                Menampilkan <strong>1-{filteredLoans.length}</strong> dari <strong>{loans.length}</strong> peminjaman
+                Menampilkan <strong>{filteredLoans.length}</strong> dari <strong>{loans.length}</strong> peminjaman
               </div>
             </CardFooter>
           </Card>

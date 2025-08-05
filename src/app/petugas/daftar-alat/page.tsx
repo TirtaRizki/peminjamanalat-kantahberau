@@ -19,18 +19,18 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Calendar } from '@/components/ui/calendar';
 import { initialTools } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { useLoans } from '@/hooks/use-loans';
+import { DateRange } from 'react-day-picker';
 
 type Tool = typeof initialTools[0];
 
@@ -38,8 +38,14 @@ export default function DaftarAlatPage() {
   const [tools, setTools] = useState(initialTools);
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [isLoanFormOpen, setLoanFormOpen] = useState(false);
-  const [loanDate, setLoanDate] = useState<Date | undefined>(new Date());
   const { toast } = useToast();
+  const { addLoan, loans } = useLoans();
+
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 5),
+  });
+  const [notes, setNotes] = useState('');
 
   const handleRequestLoan = (tool: Tool) => {
     if (tool.status !== 'Tersedia') {
@@ -56,13 +62,36 @@ export default function DaftarAlatPage() {
 
   const handleLoanSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real app, this would submit the loan request to the backend.
+    if (!selectedTool || !date?.from || !date?.to || !notes) {
+      toast({
+        variant: 'destructive',
+        title: 'Gagal',
+        description: 'Harap isi semua kolom peminjaman.',
+      });
+      return;
+    }
+
+    addLoan({
+      id: `LOAN-${String(loans.length + 1).padStart(3, '0')}`,
+      borrower: 'Petugas Lapangan 1', // In a real app, this would be the logged-in user's name
+      tool: selectedTool.name,
+      loanDate: format(date.from, 'yyyy-MM-dd'),
+      returnDate: format(date.to, 'yyyy-MM-dd'),
+      status: 'Menunggu Persetujuan',
+      notes: notes,
+    });
+    
+    // In a real app, you might want to update the tool's status in the backend/state
+    
     toast({
       title: 'Permintaan Terkirim',
       description: `Permintaan peminjaman untuk ${selectedTool?.name} telah berhasil dikirim.`,
     });
+
     setLoanFormOpen(false);
     setSelectedTool(null);
+    setNotes('');
+    setDate({ from: new Date(), to: addDays(new Date(), 5) });
   };
 
   return (
@@ -80,9 +109,8 @@ export default function DaftarAlatPage() {
                  <Image
                   src={tool.image}
                   alt={tool.name}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-md"
+                  fill
+                  className="rounded-md object-cover"
                   data-ai-hint="surveying tool"
                 />
               </div>
@@ -132,33 +160,53 @@ export default function DaftarAlatPage() {
           </DialogHeader>
           <form onSubmit={handleLoanSubmit} className="grid gap-4 py-4">
              <div className="grid gap-2">
-              <Label htmlFor="date">Tanggal Peminjaman</Label>
-              <Popover>
+              <Label htmlFor="date">Tanggal Peminjaman & Pengembalian</Label>
+               <Popover>
                 <PopoverTrigger asChild>
                   <Button
+                    id="date"
                     variant={"outline"}
                     className={cn(
                       "w-full justify-start text-left font-normal",
-                      !loanDate && "text-muted-foreground"
+                      !date && "text-muted-foreground"
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {loanDate ? format(loanDate, "PPP") : <span>Pilih tanggal</span>}
+                    {date?.from ? (
+                      date.to ? (
+                        <>
+                          {format(date.from, "LLL dd, y")} -{" "}
+                          {format(date.to, "LLL dd, y")}
+                        </>
+                      ) : (
+                        format(date.from, "LLL dd, y")
+                      )
+                    ) : (
+                      <span>Pilih tanggal</span>
+                    )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
-                    mode="single"
-                    selected={loanDate}
-                    onSelect={setLoanDate}
                     initialFocus
+                    mode="range"
+                    defaultMonth={date?.from}
+                    selected={date}
+                    onSelect={setDate}
+                    numberOfMonths={2}
                   />
                 </PopoverContent>
               </Popover>
             </div>
              <div className="grid gap-2">
               <Label htmlFor="notes">Keperluan</Label>
-              <Textarea id="notes" placeholder="Contoh: Untuk survei patok batas di lokasi X..." required />
+              <Textarea 
+                id="notes" 
+                placeholder="Contoh: Untuk survei patok batas di lokasi X..." 
+                required 
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
             </div>
             <DialogFooter>
               <Button type="submit">Kirim Permintaan</Button>
