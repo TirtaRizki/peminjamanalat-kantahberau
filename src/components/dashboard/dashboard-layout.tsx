@@ -98,8 +98,8 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button size="sm" className="w-full">
-                  Hubungi Admin
+                <Button size="sm" className="w-full" asChild>
+                  <Link href="https://wa.me/6283160354907" target="_blank">Hubungi Admin</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -120,30 +120,34 @@ export default function DashboardLayout({ children, navItems, isOfficer = false 
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <nav className="grid gap-2 text-lg font-medium">
-                <Link
+              <div className="flex flex-col gap-4 p-6 h-full bg-gradient-to-br from-background via-secondary/50 to-background">
+                 <Link
                   href="#"
                   className="flex items-center gap-2 text-lg font-semibold mb-4"
                 >
                   <Image src="https://placehold.co/40x40.png" alt="SILAB Berau Logo" width={24} height={24} className="h-6 w-6 rounded-md" data-ai-hint="logo" />
                   <span>SILAB Berau</span>
                 </Link>
-                {navItems.map((item) => {
+                <nav className="grid gap-2 text-lg font-medium">
+                {navItems.map((item, index) => {
                   const Icon = getIcon(item.name);
                   return (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground',
-                      pathname === item.href && 'bg-muted text-foreground'
+                      'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 hover:pl-5 transition-all duration-300',
+                      pathname === item.href && 'bg-muted text-foreground',
+                      'animate-fade-in-up'
                     )}
+                     style={{ animationDelay: `${index * 100 + 200}ms`}}
                   >
                     <Icon className="h-5 w-5" />
                     {item.name}
                   </Link>
                 )})}
               </nav>
+              </div>
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">
