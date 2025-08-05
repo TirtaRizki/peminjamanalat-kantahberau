@@ -33,7 +33,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center justify-center md:justify-start gap-2">
                 <Phone className="h-5 w-5 text-primary" />
-                <span>Telepon +62 554 21803</span>
+                <span>Telepon +6283160354907</span>
               </p>
             </div>
             <div className="flex justify-center md:justify-start gap-2 mt-4">

@@ -33,7 +33,7 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Telepon</h3>
-                <p className="text-muted-foreground mt-1">(0554) 123-456</p>
+                <p className="text-muted-foreground mt-1">+6283160354907</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
