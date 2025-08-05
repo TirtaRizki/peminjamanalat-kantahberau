@@ -62,8 +62,9 @@ export default function LoginForm({ title, role }: LoginFormProps) {
         });
       }
     } else if (role === 'officer') {
-      if (email === 'petugas@kantahberau.com' && password === 'petugasgiat2025') {
-        router.push('/petugas/dashboard');
+      // This is a simplified check. In a real app, you'd check against a user database.
+      if (email.endsWith('@kantahberau.com') && password.length >= 6) {
+         router.push('/petugas/dashboard');
       } else {
         toast({
           variant: 'destructive',
@@ -119,7 +120,17 @@ export default function LoginForm({ title, role }: LoginFormProps) {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                       <div className="flex items-center">
+                        <FormLabel>Password</FormLabel>
+                         {role === 'officer' && (
+                           <Link
+                            href="/forgot-password/officer"
+                            className="ml-auto inline-block text-sm underline"
+                          >
+                            Lupa Password?
+                          </Link>
+                         )}
+                      </div>
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
@@ -132,6 +143,14 @@ export default function LoginForm({ title, role }: LoginFormProps) {
                 </Button>
               </form>
             </Form>
+             {role === 'officer' && (
+              <div className="mt-4 text-center text-sm">
+                Belum punya akun?{' '}
+                <Link href="/register/officer" className="underline">
+                  Daftar
+                </Link>
+              </div>
+            )}
           </CardContent>
           <CardFooter className="flex-col">
             <Button variant="link" asChild className="text-muted-foreground group">

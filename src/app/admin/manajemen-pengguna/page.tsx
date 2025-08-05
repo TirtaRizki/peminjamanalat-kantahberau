@@ -56,39 +56,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useUsers } from '@/hooks/use-users';
 
-const initialUsers = [
-  {
-    id: 'USR-001',
-    name: 'Admin Utama',
-    email: 'admin@kantahberau.com',
-    role: 'Admin',
-    avatar: '/images/avatar-placeholder.png',
-  },
-  {
-    id: 'USR-002',
-    name: 'Petugas Lapangan 1',
-    email: 'petugas@kantahberau.com',
-    role: 'Petugas',
-    avatar: '/images/avatar-placeholder.png',
-  },
-  {
-    id: 'USR-003',
-    name: 'Andi Wijaya',
-    email: 'andi.w@kantahberau.com',
-    role: 'Petugas',
-    avatar: '/images/avatar-placeholder.png',
-  },
-  {
-    id: 'USR-004',
-    name: 'Budi Santoso',
-    email: 'budi.s@kantahberau.com',
-    role: 'Petugas',
-    avatar: '/images/avatar-placeholder.png',
-  },
-];
-
-type User = typeof initialUsers[0];
+type User = {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    avatar: string;
+}
 
 const getRoleBadge = (role: string) => {
   switch (role) {
@@ -102,7 +78,7 @@ const getRoleBadge = (role: string) => {
 };
 
 export default function ManajemenPenggunaPage() {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const { users, setUsers, addUser } = useUsers();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isFormOpen, setFormOpen] = useState(false);
 
@@ -125,7 +101,6 @@ export default function ManajemenPenggunaPage() {
     const formData = new FormData(e.currentTarget);
     const newUserEmail = formData.get('email') as string;
 
-    // Check for duplicate email
     if (
       users.some(
         (user) =>
@@ -144,20 +119,19 @@ export default function ManajemenPenggunaPage() {
     };
 
     if (selectedUser) {
-      // Update
       setUsers(
         users.map((user) =>
-          user.id === selectedUser.id ? { ...user, ...newUserData } : user
+          user.id === selectedUser.id
+            ? { ...user, ...newUserData }
+            : user
         )
       );
     } else {
-      // Create
-      const newUser: User = {
+      addUser({
         id: `USR-${String(users.length + 1).padStart(3, '0')}`,
         avatar: '/images/avatar-placeholder.png',
         ...newUserData,
-      };
-      setUsers([...users, newUser]);
+      });
     }
     setFormOpen(false);
     setSelectedUser(null);
