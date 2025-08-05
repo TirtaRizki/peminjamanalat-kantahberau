@@ -2,7 +2,7 @@ export const initialTools = [
   {
     id: 'ALT-001',
     name: 'Total Station',
-    image: '/images/placeholder-64x64.png',
+    image: '/images/total-station.png',
     type: 'Elektronik',
     status: 'Tersedia',
     condition: 'Baik',
@@ -10,7 +10,7 @@ export const initialTools = [
   {
     id: 'ALT-002',
     name: 'GPS Geodetik',
-    image: '/images/placeholder-64x64.png',
+    image: '/images/gps-geodetik.png',
     type: 'Elektronik',
     status: 'Dipinjam',
     condition: 'Baik',
@@ -18,7 +18,7 @@ export const initialTools = [
   {
     id: 'ALT-003',
     name: 'Waterpass',
-    image: '/images/placeholder-64x64.png',
+    image: '/images/waterpass.png',
     type: 'Optik',
     status: 'Tersedia',
     condition: 'Perbaikan',
