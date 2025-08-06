@@ -1,7 +1,29 @@
+'use client';
+
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 export default function Contact() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const adminPhone = '6283160354907';
+    const waMessage = `Halo Admin, saya ingin mengajukan pertanyaan.\n\nNama: ${name}\nEmail: ${email}\nSubjek: ${subject}\n\nPesan:\n${message}`;
+    const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(
+      waMessage
+    )}`;
+    window.open(waLink, '_blank');
+  };
+
   return (
     <section id="kontak" className="py-20 md:py-28">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -10,14 +32,66 @@ export default function Contact() {
             Kontak & Lokasi
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Kunjungi kami atau hubungi untuk informasi lebih lanjut.
+            Kunjungi kami, hubungi, atau isi formulir di bawah untuk informasi lebih lanjut.
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <Card className="p-8 shadow-lg">
+            <h3 className="text-2xl font-bold mb-6">Formulir Pengajuan</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nama Lengkap</Label>
+                  <Input
+                    id="name"
+                    placeholder="Nama Anda"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Alamat Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="email@anda.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subjek</Label>
+                <Input
+                  id="subject"
+                  placeholder="Subjek pesan Anda"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="message">Pesan</Label>
+                <Textarea
+                  id="message"
+                  placeholder="Tuliskan pesan atau pertanyaan Anda di sini..."
+                  rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full" size="lg">
+                Kirim via WhatsApp
+              </Button>
+            </form>
+          </Card>
           <div className="space-y-8">
             <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <MapPin className="h-6 w-6 text-primary group-hover:animate-ping" />
+                <MapPin className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Alamat Kantor</h3>
@@ -29,7 +103,7 @@ export default function Contact() {
             </div>
             <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <Phone className="h-6 w-6 text-primary group-hover:animate-shake" />
+                <Phone className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Telepon</h3>
@@ -38,27 +112,27 @@ export default function Contact() {
             </div>
             <div className="flex items-start gap-4 group">
               <div className="bg-primary/10 p-3 rounded-lg">
-                <Mail className="h-6 w-6 text-primary group-hover:animate-pulse" />
+                <Mail className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Email</h3>
                 <p className="text-muted-foreground mt-1">kontak@bpnberau.go.id</p>
               </div>
             </div>
+             <Card className="overflow-hidden shadow-2xl mt-8">
+              <CardContent className="p-0 h-[250px] lg:h-[300px]">
+                 <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.017611164208!2d117.500487575985!3d2.1469428584933556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320df4fff085da65%3A0x93dbf250f6104bc8!2sBPN!5e0!3m2!1sid!2sid!4v1754402113907!5m2!1sid!2sid"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </CardContent>
+            </Card>
           </div>
-          <Card className="overflow-hidden shadow-2xl">
-            <CardContent className="p-0 h-full">
-               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.017611164208!2d117.500487575985!3d2.1469428584933556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320df4fff085da65%3A0x93dbf250f6104bc8!2sBPN!5e0!3m2!1sid!2sid!4v1754402113907!5m2!1sid!2sid"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>
